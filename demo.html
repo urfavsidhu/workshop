@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to the Git Start Workshop. Learn the basics, make your first commit, and start building.">
+    <meta name="theme-color" content="#f6f4ed">
+    <title>Welcome · Git Start Workshop</title>
+    <style>
+        :root { color-scheme: light; --paper: #f6f4ed; --ink: #242820; --orange: #d84925; --muted: #686d63; }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+        body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'Segoe UI', Arial, sans-serif; }
+        a { color: inherit; text-decoration: none; }
+        .wrap { width: min(1120px, calc(100% - 48px)); margin: auto; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 28px 0; border-bottom: 1px solid #dcded3; }
+        .brand { display: flex; align-items: center; gap: 11px; font-size: 19px; font-weight: 750; letter-spacing: -.7px; }
+        .brand-icon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; background: var(--orange); color: white; font-family: monospace; font-size: 21px; }
+        .nav-link { font-size: 13px; font-weight: 600; }
+        .nav-link span { margin-left: 10px; }
+        .hero { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: 65px; padding: 85px 0 78px; }
+        .eyebrow { display: inline-flex; align-items: center; gap: 9px; font-size: 11px; font-weight: 750; letter-spacing: 1.7px; text-transform: uppercase; }
+        .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
+        h1 { margin: 23px 0; font-size: clamp(48px, 6.3vw, 78px); font-weight: 750; letter-spacing: -4px; line-height: 1.04; }
+        h1 em { color: var(--orange); font-style: normal; }
+        .intro { max-width: 400px; color: var(--muted); font-size: 17px; line-height: 1.8; }
+        .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; margin-top: 30px; }
+        .button { display: inline-flex; align-items: center; justify-content: center; gap: 28px; padding: 16px 23px; border: 0; border-radius: 7px; background: var(--orange); color: white; font-size: 14px; font-weight: 650; transition: transform .2s, background .2s; }
+        .button:hover { background: #b83a1b; transform: translateY(-2px); }
+        .small-note { color: var(--muted); font-size: 12px; }
+        .visual { position: relative; padding: 30px 0; }
+        .visual::before { content: ''; position: absolute; inset: -15px -25px; border-radius: 50%; background: #e7e9db; z-index: -1; }
+        .terminal { overflow: hidden; background: #252b25; color: #e9eddf; border: 1px solid #3b4237; border-radius: 12px; box-shadow: 0 24px 45px #24282020; transform: rotate(-2deg); }
+        .terminal-bar { display: flex; align-items: center; gap: 6px; padding: 17px 19px; border-bottom: 1px solid #ffffff12; }
+        .light { width: 9px; height: 9px; background: #ec7766; border-radius: 50%; }
+        .light:nth-child(2) { background: #e6c26f; } .light:nth-child(3) { background: #95b685; }
+        .terminal-title { flex: 1; margin-right: 37px; text-align: center; font: 11px Consolas, monospace; color: #aeb6a7; }
+        .terminal-body { padding: 29px 27px 34px; font: 13px/2 Consolas, 'Courier New', monospace; }
+        .terminal-body p { margin: 0 0 12px; }
+        .prompt { color: #a9c890; } .comment { color: #929e89; } .success { color: #b9d99f; }
+        .cursor { display: inline-block; width: 8px; height: 15px; background: #b9d99f; vertical-align: middle; }
+        .commit-note { position: relative; width: max-content; margin: -2px 0 0 auto; padding: 13px 18px; border: 1px solid #d4d9c9; border-radius: 7px; background: #fbfcf6; box-shadow: 0 8px 16px #24282008; transform: rotate(3deg); font-size: 12px; }
+        .commit-note span { color: #557443; margin-right: 8px; }
+        .journey { padding: 34px 0 40px; border-top: 1px solid #dcded3; }
+        .section-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 28px; }
+        h2 { margin: 0; font-size: 22px; letter-spacing: -.7px; }
+        .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
+        .step { display: flex; align-items: flex-start; gap: 14px; }
+        .number { padding-top: 3px; color: var(--orange); font: 12px Consolas, monospace; }
+        h3 { margin: 0 0 8px; font-size: 15px; }
+        .step p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+        .quickstart { margin: 8px 0 45px; padding: 25px; background: #eeeee4; border: 1px solid #dcded3; border-radius: 10px; }
+        summary { cursor: pointer; font-size: 14px; font-weight: 650; }
+        .quickstart p { color: var(--muted); font-size: 13px; line-height: 1.7; }
+        pre { overflow-x: auto; padding: 18px; border-radius: 6px; background: #252b25; color: #e9eddf; font: 13px/1.9 Consolas, monospace; }
+        code { font-family: Consolas, monospace; }
+        footer { display: flex; justify-content: space-between; gap: 20px; padding: 22px 0 28px; border-top: 1px solid #dcded3; color: var(--muted); font-size: 11px; }
+        :focus-visible { outline: 3px solid #66814e; outline-offset: 5px; }
+        @media (max-width: 800px) {
+            .hero { grid-template-columns: 1fr; gap: 32px; padding: 55px 0 45px; }
+            h1 { letter-spacing: -2.5px; } .intro { max-width: 480px; }
+            .visual { max-width: 480px; width: 100%; margin: auto; }
+            .visual::before { inset: 0; } .steps { gap: 24px; }
+        }
+        @media (max-width: 520px) {
+            .wrap { width: calc(100% - 36px); } header { padding: 22px 0; }
+            .steps { grid-template-columns: 1fr; } .section-top { align-items: flex-start; flex-direction: column; }
+            .terminal-body { padding: 23px 18px; font-size: 11px; }
+            footer { flex-direction: column; gap: 8px; } .quickstart { padding: 20px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .button { transition: none; } }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <a class="brand" href="#" aria-label="Git Start home"><span class="brand-icon" aria-hidden="true">&gt;_</span> git / start</a>
+            <a class="nav-link" href="#journey">The workshop <span aria-hidden="true">↗</span></a>
+        </header>
+        <main>
+            <section class="hero" aria-labelledby="welcome-title">
+                <div>
+                    <div class="eyebrow"><span class="dot" aria-hidden="true"></span> Your next chapter starts here</div>
+                    <h1 id="welcome-title">Small steps.<br>Big ideas.<br><em>First commit.</em></h1>
+                    <p class="intro">Hey, welcome aboard! Learn Git, explore what’s possible, and turn your ideas into something real. One commit at a time.</p>
+                    <div class="actions">
+                        <a class="button" href="#quickstart" id="get-started">Let’s get started <span aria-hidden="true">↗</span></a>
+                        <span class="small-note">No experience? No problem.</span>
+                    </div>
+                </div>
+                <div class="visual" aria-label="Example of a first Git commit">
+                    <div class="terminal">
+                        <div class="terminal-bar" aria-hidden="true"><span class="light"></span><span class="light"></span><span class="light"></span><span class="terminal-title">your-next-big-idea — terminal</span></div>
+                        <div class="terminal-body">
+                            <p class="comment"># Every great project starts somewhere.</p>
+                            <p><span class="prompt">~ $</span> git init<br><span class="comment">Initialized empty Git repository.</span></p>
+                            <p><span class="prompt">~ $</span> git add .<br><span class="prompt">~ $</span> git commit -m "Hello, world!"</p>
+                            <p class="success">[main a1b2c3d] Hello, world!<br>1 file changed. A new journey begins.</p>
+                            <span class="prompt">~ $</span> <span class="cursor" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="commit-note"><span aria-hidden="true">✓</span> A little progress. A lot of possibility.</div>
+                </div>
+            </section>
+            <section class="journey" id="journey" aria-labelledby="journey-title">
+                <div class="section-top"><h2 id="journey-title">From curious to committed.</h2><span class="small-note">Your workshop roadmap / 01—03</span></div>
+                <div class="steps">
+                    <article class="step"><span class="number">01 /</span><div><h3>Learn the basics</h3><p>Get comfortable with repositories, staging, and tracking your changes.</p></div></article>
+                    <article class="step"><span class="number">02 /</span><div><h3>Make your first commit</h3><p>Save a little milestone. Give your work a history you can come back to.</p></div></article>
+                    <article class="step"><span class="number">03 /</span><div><h3>Build together</h3><p>Explore branches and discover how to bring everyone’s ideas together.</p></div></article>
+                </div>
+            </section>
+            <details class="quickstart" id="quickstart">
+                <summary>Ready for your first commit? Start here.</summary>
+                <p>With Git installed, open a terminal in your project folder. Create or edit a file, then run these commands. If this folder already has a Git repository, skip <code>git init</code>.</p>
+                <pre><code>git init
+git status
+git add .
+git commit -m "My first commit"</code></pre>
+                <p>If Git asks for your identity, set your name and email with <code>git config --global user.name "Your Name"</code> and <code>git config --global user.email "you@example.com"</code>, then retry the commit. Only stage files you intend to track; keep passwords and secrets out of your repository.</p>
+            </details>
+        </main>
+        <footer><span>git / start — Made for new beginnings.</span><span>Stay curious. Keep building. ✳</span></footer>
+    </div>
+    <script>
+        document.getElementById('get-started').addEventListener('click', function () {
+            document.getElementById('quickstart').open = true;
+        });
+    </script>
+</body>
+</html>
